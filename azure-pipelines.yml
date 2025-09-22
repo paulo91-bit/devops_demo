@@ -43,11 +43,11 @@ stages:
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
 
-    - task: PublishBuildArtifact@1
+    - task: PublishPipelineArtifact@1
       displayName: 'Publish artifact'
       inputs:
-        pathToPublish: '$(Build.ArtifactStagingDirectory)'
-        artifactName: 'drop'
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'drop'
 
 - stage: Deploy
   displayName: 'Deploy Stage'
