@@ -1,0 +1,8 @@
+# .artifactsignore
+
+# Exclude virtual environment folders
+venv/
+antenv/
+
+# Exclude git repository folder
+.git/
