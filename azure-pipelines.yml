@@ -31,6 +31,20 @@ stages:
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
 
+    # ✅ Verify Django is installed
+    - script: |
+        source antenv/bin/activate
+        python -m django --version
+      workingDirectory: $(projectRoot)
+      displayName: "Verify Django installation"
+
+    # Clean up virtual environments so they’re not packed into artifacts
+    - script: |
+        rm -rf antenv
+        rm -rf venv
+      displayName: 'Remove virtual environments'
+
+    # Debug - show files before archiving
     - script: ls -la
       displayName: 'List files before archiving'
 
@@ -68,4 +82,4 @@ stages:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-              startupCommand: 'gunicorn --bind=0.0.0.0 --workers=4 deploy_project.wsgi'
+              startupCommand: 'gunicorn --bind=0.0.0.0 --workers=4 deploy_project.wsgi:application'
