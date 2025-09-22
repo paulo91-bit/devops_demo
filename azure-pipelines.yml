@@ -1,6 +1,5 @@
 # Python to Linux Web App on Azure
 # Build your Python project and deploy it to Azure as a Linux Web App.
-# Change python version to one thats appropriate for your application.
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 trigger:
@@ -12,9 +11,6 @@ variables:
 
   # Web app name
   webAppName: 'django-product-api'
-
-  # Agent VM image name
-  vmImageName: 'dev'
 
   # Environment name
   environmentName: 'django-product-api'
@@ -30,7 +26,7 @@ stages:
   jobs:
   - job: BuildJob
     pool:
-       name: 'dev'
+      name: 'dev'
     steps:
     - task: UsePythonVersion@0
       inputs:
@@ -45,6 +41,11 @@ stages:
         pip install -r requirements.txt
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
+
+    - script: |
+        rm -rf antenv
+        rm -rf venv
+      displayName: 'Remove virtual environments before archiving'
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
@@ -66,13 +67,12 @@ stages:
   jobs:
   - deployment: DeploymentJob
     pool:
-       name: 'dev'
+      name: 'dev'
     environment: $(environmentName)
     strategy:
       runOnce:
         deploy:
           steps:
-
           - task: UsePythonVersion@0
             inputs:
               versionSpec: '$(pythonVersion)'
