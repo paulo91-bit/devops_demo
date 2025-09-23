@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'django-product-api-d9dzg6fbgyb5hcbw.southafricanorth-01.azurewebsites.net',
+    'django-backend-ckgsbhf7fqd2g3b8.southafricanorth-01.azurewebsites.net'
     'localhost',
     '127.0.0.1'
 ]
