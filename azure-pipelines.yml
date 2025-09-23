@@ -14,7 +14,7 @@ variables:
   webAppName: 'django-backend'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  Name: 'dev'
 
   # Environment name
   environmentName: 'django-backend'
@@ -30,7 +30,7 @@ stages:
   jobs:
   - job: BuildJob
     pool:
-      vmImage: $(vmImageName)
+      vmImage: $(Name)
     steps:
     - task: UsePythonVersion@0
       inputs:
