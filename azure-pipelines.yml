@@ -14,7 +14,7 @@ variables:
   webAppName: 'django-backend'
 
   # Agent VM image name
-  Name: 'dev'
+  name: 'dev'
 
   # Environment name
   environmentName: 'django-backend'
@@ -30,7 +30,7 @@ stages:
   jobs:
   - job: BuildJob
     pool:
-      vmImage: $(Name)
+      name: dev
     steps:
     - task: UsePythonVersion@0
       inputs:
@@ -66,7 +66,7 @@ stages:
   jobs:
   - deployment: DeploymentJob
     pool:
-      vmImage: $(vmImageName)
+      name: dev
     environment: $(environmentName)
     strategy:
       runOnce:
